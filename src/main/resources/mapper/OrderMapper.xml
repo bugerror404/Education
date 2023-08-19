@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.education.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.design.education.entity.Order" >
+    <id column="o_id" property="oId" jdbcType="BIGINT" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="receiver_address" property="receiverAddress" jdbcType="VARCHAR" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="receiver_phone" property="receiverPhone" jdbcType="VARCHAR" />
+    <result column="paystate" property="paystate" jdbcType="INTEGER" />
+    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+    <result column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="a_id" property="aId" jdbcType="INTEGER" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    o_id, money, receiver_address, receiver_name, receiver_phone, paystate, ordertime, 
+    id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_orders
+    where o_id = #{oId,jdbcType=BIGINT}
+  </select>
+  <!--文章分页查询-->
+  <select id="selectOrders" resultType="com.design.education.entity.Order">
+    select * from t_orders order by o_id asc
+  </select>
+    <select id="selectByUsername" resultType="com.design.education.entity.Order">
+      select *
+      from t_orders
+      where receiver_name=#{username}
+    </select>
+  <select id="selectByoId" resultType="com.design.education.entity.Order">
+    select *
+     from t_orders
+     where a_id=#{oId}
+     order by ordertime DESC
+     LIMIT 0,1
+
+  </select>
+  <select id="selectById" resultType="com.design.education.entity.Order">
+    select *
+    from t_orders
+    where id=#{id}
+  </select>
+    <select id="selectByState" resultType="com.design.education.entity.Order">
+      select *
+    from
+    t_orders
+    where paystate=0 or receiver_address='已取消'
+    or receiver_name like concat('%',#{search},'%')
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_orders
+    where o_id = #{oId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.education.entity.Order" >
+    insert into t_orders (o_id, money, receiver_address, 
+      receiver_name, receiver_phone, paystate, classname,
+      ordertime, id,sex,a_id)
+    values (#{oId,jdbcType=BIGINT}, #{money,jdbcType=DOUBLE}, #{receiverAddress,jdbcType=VARCHAR},
+      #{receiverName,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, #{paystate,jdbcType=INTEGER}, 
+       #{classname,jdbcType=VARCHAR} ,#{ordertime,jdbcType=TIMESTAMP},
+       #{id,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{aId,jdbcType=INTEGER}
+       )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.education.entity.Order" >
+    insert into t_orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oId != null" >
+        o_id,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="receiverAddress != null" >
+        receiver_address,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone,
+      </if>
+      <if test="paystate != null" >
+        paystate,
+      </if>
+      <if test="ordertime != null" >
+        ordertime,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oId != null" >
+        #{oId,jdbcType=BIGINT},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="receiverAddress != null" >
+        #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paystate != null" >
+        #{paystate,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.education.entity.Order" >
+    update t_orders
+    <set >
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="receiverAddress != null" >
+        receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paystate != null" >
+        paystate = #{paystate,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null" >
+        id = #{id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where o_id = #{oId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.education.entity.Order" >
+    update t_orders
+    set money = #{money,jdbcType=DOUBLE},
+      receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      paystate = #{paystate,jdbcType=INTEGER},
+      ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      id = #{id,jdbcType=BIGINT}
+    where o_id = #{oId,jdbcType=BIGINT}
+  </update>
+  <update id="updateOrder" parameterType="com.design.education.entity.Order">
+    update t_orders
+    <set >
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="receiverAddress != null" >
+        receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paystate != null" >
+        paystate = #{paystate,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+
+  </update>
+</mapper>

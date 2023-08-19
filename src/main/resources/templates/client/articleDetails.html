@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/layer.js}"></script>
+</head>
+<div th:replace="client/header::header(${article.title},null)"></div>
+<style>
+    .u-price{
+        color: rgb(255, 112, 17);
+        text-align: left;
+        float: left;
+        padding-right: 0px !important;
+    }
+    .u-btn4{
+        display: inline-block;
+        width: 96px;
+        height: 30px;
+        text-align: center;
+        background-color: rgb(5, 168, 154);
+        color: rgb(255, 255, 255);
+        float: left;
+        margin: 11px 0px 0px 15px;
+        font: 16px/30px "Microsoft Yahei";
+        overflow: hidden;
+        border-radius: 2px;
+    }
+
+    a:hover {
+    text-decoration: underline;
+    }
+
+</style>>
+<body>
+<article class="main-content post-page">
+    <div class="post-header">
+        <h1 class="post-title" itemprop="name headline" style="color: rgb(3, 160, 147);" th:text="${article.title}"></h1>
+        <div style="width: 752px; height:60px;clear: both;
+        background-color: rgb(251, 242, 222);overflow: hidden;padding: 8px 10px;margin-bottom: 10px;">
+            <div class="u-price">￥<span style="font-size: 28px;" th:text="${article.money}"></span>起</div>
+            <a id="classRegister" class="u-btn4" th:href="@{'/cart/'+${article.id}}" style="color: #ffffff;">报名</a>
+            <a id="classcollect" class="u-btn4"
+               href="javascript:void(0)" th:onclick="'insertCollect('+${article.id}+');'"
+               style="color: #ffffff;">收藏</a><!--th:href="@{'/collect/'+${article.id}}"-->
+
+        </div>
+    </div>
+    <div id="post-content" class="post-content content" th:utext="${commons.article(article.content)}"></div>
+    <div style="font-size: 14px;padding-top: 10px; border-top: 1px dashed #DDDDDD"><span style="float: left;">适用学员：</span><p class="post-fitpeople" th:text="${article.fitpeople}"></p></div>
+    <div style="font-size: 14px;padding-top: 10px; border-top: 1px dashed #DDDDDD"><span style="float: left;">学习目标：</span><p class="post-ctarget" th:text="${article.ctarget}"></p></div>
+</article>
+<!--<div th:replace="client/comments::comments"></div>&lt;!&ndash;comments.html页面&ndash;&gt;-->
+<div th:replace="client/footer::footer"></div>
+<!-- 使用layer.js实现图片缩放功能 -->
+<script type="text/JavaScript">
+    function insertCollect(id) {
+        var msg="确定收藏该课程吗"
+        if (confirm(msg)){
+            // alert("收藏成功");
+            window.location.href='/collect/'+id;
+        }
+        else
+            alert("收藏失败");
+    }
+</script>
+</body>
+</html>

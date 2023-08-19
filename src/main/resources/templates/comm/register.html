@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='注册',active='register'">
+<header th:replace="back/header::headerFragment(${title},${active})"></header>
+<link th:href="@{/back/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/select2.dist.css/select2-bootstrap.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/toggles/toggles.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/mditor/css/mditor.min.css}" rel="stylesheet"/>
+<link th:href="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.css}" rel="stylesheet">
+    <!--<meta charset="utf-8">-->
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <!--<meta name="viewport"-->
+          <!--content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <!--<title>注册</title>-->
+
+    <!--<meta http-equiv="Cache-Control" content="no-siteapp"/>-->
+
+    <link rel="stylesheet" th:href="@{/assets/css/amazeui.min.css}"/>
+
+    <link rel="stylesheet" th:href="@{/assets/css/app.css}"/>
+
+
+<body>
+
+<div class="log">
+    <div class="am-g">
+        <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered log-content">
+            <h1 class="log-title am-animation-slide-top" style="color: black;" >欢迎注册</h1>
+            <br>
+            <!--填写注册页面-->
+            <form class="am-form" id="registerForm" >
+
+                <input type="hidden" name="id" id="id"/>
+                <div class="am-input-group am-radius am-animation-slide-left">
+                    <span class="am-input-group-label log-icon am-radius">
+                        <i class="am-icon-user am-icon-sm am-icon-fw"></i>
+                    </span>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="text" class="am-radius" th:placeholder="#{login.username}" name="username" />
+
+                </div>
+                <br>
+                <div class="am-input-group am-animation-slide-left log-animation-delay">
+                    <span class="am-input-group-label log-icon am-radius">
+                        <i class="am-icon-lock am-icon-sm am-icon-fw"></i>
+                    </span>
+                    <input type="password" class="am-form-field am-radius log-input" th:placeholder="#{login.password}" name="password" />
+
+                </div>
+                <br>
+                <div class="am-input-group am-radius am-animation-slide-left">
+                    <span class="am-input-group-label log-icon am-radius">
+                        <i class="am-icon-envelope-o am-icon-sm am-icon-fw"></i>
+                    </span>
+                    <input type="text" class="am-radius" th:placeholder="#{login.email}" name="email" />
+                </div>
+                   <div class="am-input-group am-radius am-animation-slide-left" style="margin-top: 25px;">
+                    <span class="am-input-group-label log-icon am-radius">
+                        <i class="am-icon-user-md am-icon-sm am-icon-fw"></i>
+                    </span>
+
+                       <select class="am-radius" th:placeholder="#{login.identity}" name="identity" >
+                           <option th:value="大学生">大学生</option>
+                           <option th:value="中学生">中学生</option>
+                           <option th:value="小学生">小学生</option>
+                       </select>
+                   </div>
+
+                <div style="padding-top: 10px;">
+                    <button type="button" style="height: auto;font-size: 20px;background: #02bb92;margin-top: 20px;"
+                            class="am-btn am-btn-primary am-btn-block am-btn-lg am-radius am-animation-slide-bottom log-animation-delay" onclick="subUser('');">
+                        注册
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <footer class="log-footer">
+        <!--th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}"-->
+        <p style="margin: 30px; color: #2E2D3C"><time class="comment-time" ></time> 2021 &copy;  Powered By <a style="color: #d4d4d4" rel="nofollow">山东青年政治学院</a></p>
+    </footer>
+</div>
+<script th:src="@{/back/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
+<script th:src="@{/back/plugins/jquery-multi-select/jquery.quicksearch.js}"></script>
+
+<script th:src="@{/back/plugins/mditor/js/mditor.min.js}"></script>
+<script th:src="@{/back/plugins/multi-select/0.9.12/js/jquery.multi-select.min.js}"></script>
+<script th:src="@{/back/plugins/select2/3.4.8/select2.min.js}"></script>
+<script th:src="@{//cdn.bootcss.com/jquery-toggles/2.0.4/toggles.min.js}"></script>
+<script th:src="@{/back/plugins/dropzone/4.3.0/min/dropzone.min.js}"></script>
+<script th:src="@{/back/plugins/to-markdown/3.1.0/to-markdown.min.js}"></script>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/back/js/bootstrap.js}"></script>
+<script th:src="@{/back/js/sweetalert2.min.js}"></script>
+<script th:src="@{/back/js/jquery.app.js}"></script>
+<script th:src="@{/back/js/base.js}"></script>
+
+<script th:src="@{/back/js/user.js}"></script>
+
+<script th:src="@{/assets/js/amazeui.min.js}"></script>
+
+
+
+</body>
+</html>

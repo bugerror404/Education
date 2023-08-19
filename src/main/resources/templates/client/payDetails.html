@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/layer.js}"></script>
+    <script th:src="@{/assets/js/timeout.js}"></script>
+</head>
+<div th:replace="client/header::header(支付,null)"></div>
+<style>
+    .u-price{
+        color: rgb(255, 112, 17);
+        text-align: left;
+        float: left;
+        padding-right: 0px !important;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    .stw_hw {
+        /*width: 900px;*/
+        height: 30px;
+        border-bottom: 2px solid #8CDBD5;
+        margin:80px 70px 0 70px;
+    }
+    .wrap1000 {
+        width: 1000px;
+        margin: 0 auto;
+    }
+    .stw_h h1 {
+        float: left;
+        padding: 0px 0 0 0px;
+    }
+    .stw_h h1 a {
+        float: left;
+        /*background: url(../images/index_bg.png) 0 -30px;*/
+        overflow: hidden;
+        /*width: 145px;*/
+        height: 30px;
+        line-height: 60px;
+    }
+    .stw_h h1 span {
+        float: left;
+        height: 30px;
+        /*line-height: 70px;*/
+        color: #333;
+        font-size: 18px;
+        font-family: "Microsoft YaHei","Helvetica","sans-serif";
+        text-align: left;
+    }
+    .f-f0 {
+        font-family: "Microsoft YaHei","Helvetica","sans-serif";
+    }
+    .st_step1 {
+        /*background: url(../images/index_bg.png) 0 -117px no-repeat;*/
+        height: 30px;
+        width: 600px;
+        float: left;
+        padding-left:70px;
+        /*margin-bottom: 0px;*/
+    }
+    .st_step1 li.co1 {
+        color: #03a093;
+        font-weight: bold;
+    }
+    .st_step1 li {
+        float: left;
+        /*width: 100px;*/
+        /*line-height: 60px;*/
+        text-align: center;
+        font-size: 14px;
+        color: #8c8c8c;
+    }
+    /*导航栏部分*/
+    .sm3_ctit {
+        height: 39px;
+        background: #f2f2f2;
+        border-top: 1px solid #e5e5e5;
+        line-height: 39px;
+        font-size: 12px;
+        color: #999;
+    }
+    .sm3_ctit .sm3_c01 {
+        width: 160px;
+        /*padding-left: 30px;*/
+    }
+    .settlement1 p span {
+        float: left;
+        text-align: right;
+    }
+    /*结算条*/
+    .settlement_endL .price_nub {
+        float: right;
+        height: 43px;
+        position: relative;
+        line-height: 43px;
+        font-size: 14px;
+        color: #797979;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .settlement_endL .price_nub em {
+        float: left;
+        padding-left: 25px;
+        height: 43px;
+        /*background: url(../Images/real_pay.png) no-repeat 0 center;*/
+        color: #838181;
+    }
+    .u-btn{
+        float: right;
+        width: 100px;
+        font: 16px/30px "Microsoft Yahei";
+        height: 30px;
+        overflow: hidden;
+        text-align: center;
+        background-color: #ff7011;
+        color: #fff;
+        border-radius: 2px;
+        border: none;
+    }
+
+    .stwclear input {
+        width: 140px;
+        height: 23px;
+        line-height: 23px;
+        border: 1px solid #D8D8D8;
+        border-radius: 2px;
+        color: #333333;
+        float: left;
+        margin-top: 5px;
+    }
+    .fcfe input {
+        width: 15px;
+        height: 15px;
+        margin-top: 10px;
+        margin-right: 7px;
+        float: left;
+        color: #333333;
+    }
+    .fcfe em {
+        float: left;
+        font-size: 12px;
+        color: #333;
+        margin-right: 15px;
+    }
+    h3.title3 {
+        background-color:#f2f2f2;
+    }
+    .pay_txt{
+        width: 800px;
+        height: 150px;
+        margin-left: 231px;
+        text-align: center;
+    }
+</style>>
+<body>
+<div class="stw_hw">
+    <div class="stw_h wrap1000">
+        <ul class="st_step1 f-f0">
+            <li class="co2" style="color: #76c0b8;font-weight: normal;">购物车---></li>
+            <li class="co2" style="color: #76c0b8;font-weight: normal;">填写或确认订单---></li>
+            <li class="co1">在线支付---></li>
+            <li>支付完成</li>
+        </ul>
+    </div>
+</div>
+<!--支付信息 S-->
+<div class="pay_txt">
+    <p></p>
+    <p class="pay_txt2 f-f0">
+        <span style="font-size: 21px;line-height: 3;">订单提交成功！请选择支付方式，尽快付款！</span>
+    <br/>
+        您的订单号：<strong><span id="id" style="font-size: 15px;font-weight: normal;" th:text="${order.id}"></span></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+        请您在<span style="color: rgb(255, 112, 17);" id="minute">15</span>分钟之内支付
+    </p>
+    <p class="pay_txt3 f-f0">
+        应付金额：<span style="color: rgb(255, 112, 17);">¥</span><em style="color: rgb(255, 112, 17);" th:text="${order.money}"></em>
+
+    </p>
+</div>
+<div style="width: 800px;height: 300px;border:1px solid #e5e5e5;margin-left: 231px;padding:0px;margin-top: 25px;margin-bottom: 100px;">
+    <h3  class="title3 f-f0" style="float: left;padding-left: 20px;width: 800px;height: 37px;border: 1px solid #E5E5E5;
+        border-bottom: 0;line-height: 37px;font-weight: normal;font-size: 16px;color: #3d3d3d;border-left: 0;border-right: 0;">
+            <i class="am-icon-hand-o-down am-icon-sm am-icon-fw" style="margin-right: 10px;"></i>支付方式</h3>
+    <form id="payForm" style="width: 800px;height: 150px;margin-bottom: 20px;border-bottom: 1px dashed #e5e5e5;margin-top: 80px;" th:action="@{/pay/success}" method="post">
+        <input type="hidden" name="id" th:value="${order.id}" />
+
+        <div style="float: left;margin-left: 17px;" >
+            <input id="ICBC-NET-B2C" type="radio" name="tag" th:value="中国工商银行" checked="checked" />
+            <img name="ICBC-NET-B2C" align="middle" th:src="@{/user/img/bank_img/icbc.jpg}"/>
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <input id="CMBCHINA-NET-B2C" type="radio" name="tag" th:value="招商银行" />
+            <img name="CMBCHINA-NET-B2C" align="middle" th:src="@{/user/img/bank_img/cmb.jpg}" />
+        </div>
+        <div style="margin-left: 20px;float: left;">
+            <input id="ABC-NET-B2C" type="radio" name="tag" th:value="中国农业银行" />
+            <img name="ABC-NET-B2C" align="middle" th:src="@{/user/img/bank_img/abc.jpg}" />
+        </div>
+        <div style="margin-left: 20px;float: left;">
+        <input id="CCB-NET-B2C" type="radio" name="tag" th:value="中国建设银行" />
+        <img name="CCB-NET-B2C" align="middle" th:src="@{/user/img/bank_img/ccb.jpg}" />
+        </div>
+        <div style="margin-left: 17px;float: left;margin-top: 15px;">
+            <input id="BCCB-NET-B2C" type="radio" name="tag" th:value="北京银行" />
+            <img name="BCCB-NET-B2C" align="middle" th:src="@{/user/img/bank_img/bj.jpg}" />
+        </div>
+        <div style="margin-left: 17px;float: left;margin-top: 15px;">
+            <input id="BOCO-NET-B2C" type="radio" name="tag" th:value="交通银行" />
+            <img name="BOCO-NET-B2C" align="middle" th:src="@{/user/img/bank_img/bcc.jpg}"/>
+        </div>
+        <div style="margin-left: 23px;float: left;margin-top: 15px;">
+            <input id="CIB-NET-B2C" type="radio" name="tag" th:value="兴业银行" />
+            <img name="CIB-NET-B2C" align="middle" th:src="@{/user/img/bank_img/cib.jpg}" />
+        </div>
+        <div style="margin-left: 21px;float: left;margin-top: 15px;">
+            <input id="NJCB-NET-B2C" type="radio" name="tag" th:value="南京银行" />
+            <img name="NJCB-NET-B2C" align="middle" th:src="@{/user/img/bank_img/nanjing.jpg}" />
+        </div>
+        <div style="margin-left: 17px;float: left;margin-top: 15px;">
+        <input id="CMBC-NET-B2C" type="radio" name="tag" th:value="中国民生银行" />
+        <img name="CMBC-NET-B2C" align="middle" th:src="@{/user/img/bank_img/cmbc.jpg}"  />
+       </div>
+        <div style="margin-left: 17px;float: left;margin-top: 15px;">
+        <input id="CEB-NET-B2C" type="radio" name="tag" th:value="中国光大银行" />
+        <img name="CEB-NET-B2C" align="middle" th:src="@{/user/img/bank_img/guangda.jpg}"  />
+        </div>
+        <div style="margin-left: 23px;float: left;margin-top: 15px;">
+            <input id="BOC-NET-B2C" type="radio" name="tag" th:value="中国银行" />
+            <img name="BOC-NET-B2C" align="middle" th:src="@{/user/img/bank_img/bc.jpg}"  />
+        </div>
+        <div style="margin-left: 21px;float: left;margin-top: 15px;">
+            <input id="PINGANBANK-NET" type="radio" name="tag" th:value="平安银行" />
+            <img name="PINGANBANK-NET" align="middle" th:src="@{/user/img/bank_img/pingan.jpg}" />
+        </div>
+        <!--支付按钮-->
+        <div style="height: 60px;margin-bottom: 30px">
+    <span style="width: 600px;height: 60px;">
+        <a th:href="@{'/back/cart/'+${order.id}}" style="float: right;padding-top: 130px;margin-right: 70px;font-size: 15px;">上一步</a>
+        <button type="submit" style="margin-right: 20px;margin-top: 126px;" class="u-btn"  >支付</button><!--/order-->
+    </span>
+        </div>
+    </form>
+</div>
+<!--支付信息 E-->
+
+<div th:replace="client/footer::footer"></div>
+</body>
+</html>

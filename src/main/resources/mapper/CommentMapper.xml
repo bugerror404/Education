@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.education.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.design.education.entity.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="DATE" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.design.education.entity.Comment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, article_id, created, ip, status, author
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 根据文章的id查询评论-->
+  <select id="selectByAid" resultType="com.design.education.entity.Comment">
+      select * from t_comment where article_id=#{aid} order by id desc
+    </select>
+  <!--获取所有评论数，按照新的进行排序-->
+  <select id="selectComments" resultType="com.design.education.entity.Comment">
+      select * from t_comment order by id desc
+    </select>
+  <!--获取总评论数-->
+  <select id="countComment" resultType="java.lang.Integer">
+    select count(1) from t_comment
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <!--文章修改-->
+  <delete id="deleteByAId">
+      delete from t_comment
+      where article_id=#{aid,jdbcType=INTEGER}
+    </delete>
+  <insert id="insert" parameterType="com.design.education.entity.Comment" >
+    insert into t_comment (id, article_id, created, 
+      ip, status, author, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{created,jdbcType=DATE}, 
+      #{ip,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.education.entity.Comment" >
+    insert into t_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=DATE},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.education.entity.Comment" >
+    update t_comment
+    <set >
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=DATE},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.design.education.entity.Comment" >
+    update t_comment
+    set article_id = #{articleId,jdbcType=INTEGER},
+      created = #{created,jdbcType=DATE},
+      ip = #{ip,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.education.entity.Comment" >
+    update t_comment
+    set article_id = #{articleId,jdbcType=INTEGER},
+      created = #{created,jdbcType=DATE},
+      ip = #{ip,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

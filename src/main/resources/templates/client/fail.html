@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/layer.js}"></script>
+    <script th:src="@{/assets/js/mypay.js}"></script>
+
+</head>
+<div th:replace="client/header::header(收藏失败,null)"></div>
+<style>
+    a:hover {
+        text-decoration: underline;
+    }
+    .stw_hw {
+        /*width: 900px;*/
+        height: 30px;
+        border-bottom: 2px solid #8CDBD5;
+        margin:80px 70px 0 70px;
+    }
+    .wrap1000 {
+        width: 1000px;
+        margin: 0 auto;
+    }
+    .stw_h h1 {
+        float: left;
+        padding: 0px 0 0 0px;
+    }
+    .stw_h h1 a {
+        float: left;
+        overflow: hidden;
+        height: 30px;
+        line-height: 60px;
+    }
+    .stw_h h1 span {
+        float: left;
+        height: 30px;
+        color: #333;
+        font-size: 18px;
+        font-family: "Microsoft YaHei","Helvetica","sans-serif";
+        text-align: left;
+    }
+    .f-f0 {
+        font-family: "Microsoft YaHei","Helvetica","sans-serif";
+    }
+    .st_step1 {
+        height: 30px;
+        width: 600px;
+        float: left;
+        padding-left:70px;
+    }
+    .st_step1 li.co1 {
+        color: #03a093;
+        font-weight: bold;
+    }
+    .st_step1 li {
+        float: left;
+        text-align: center;
+        font-size: 14px;
+        color: #8c8c8c;
+    }
+    .settlement1 p span {
+        float: left;
+        text-align: right;
+    }
+    h3.title3 {
+        background-color:#f2f2f2;
+    }
+</style>>
+<body>
+<div class="stw_hw">
+    <div class="stw_h wrap1000">
+        <ul class="st_step1 f-f0">
+            <li class="co2" style="color: #76c0b8;font-weight: normal;">首页---></li>
+            <li class="co2" style="color: #76c0b8;font-weight: normal;">课程详情---></li>
+            <li class="co1" >收藏---></li>
+
+        </ul>
+    </div>
+</div>
+<!--支付成功 S-->
+<div style="width: 800px;height: 230px;border:1px solid #e5e5e5;margin-bottom: 25px;margin-left: 231px;padding:0px;margin-top: 25px;">
+        <h3  class="title3 f-f0" style="float: left;padding-left: 20px;
+        width: 800px;
+        height: 37px;
+        border: 1px solid #E5E5E5;
+        border-bottom: 0;
+        line-height: 37px;
+        font-weight: normal;
+        font-size: 16px;
+        color: #3d3d3d;
+        border-left: 0;
+        border-right: 0;">
+            <i class="am-icon-bullhorn am-icon-sm am-icon-fw" style="margin-right: 10px;"></i>支付结果</h3>
+    <table style="display: inline-block;margin-left: 231px; margin-top:0px;width:800px" border="0" cellspacing="0">
+        <tr>
+            <!--<td style="border: 1px solid #ffffff;">-->
+                <!--<img src="/user/img/bank_img/IconTexto_WebDev_009.jpg" >-->
+            <!--</td>-->
+            <td style="padding:30px; text-align:center;font-size: 23px;border: 1px solid #ffffff;">
+                <font style="font-weight:bold; color:#000000">收藏失败!</font>
+                <br />
+                <br />
+                    <a href="/"style="font-size: 16px;">
+                        <span id="second" style="color:rgb(255, 112, 17);">5</span>秒后自动为您转跳回首页
+                    </a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<!--支付成功 E-->
+<div th:replace="client/footer::footer"></div>
+</body>
+</html>
